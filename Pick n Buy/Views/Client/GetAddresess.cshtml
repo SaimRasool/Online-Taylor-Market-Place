@@ -1,0 +1,228 @@
+﻿@model OTM.Models.MdlBillingAddress
+
+@{
+    ViewBag.Title = "GetAddresess";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/User_Panel/cart_responsive.css" rel="stylesheet" />
+<link href="~/Content/User_Panel/cart_styles.css" rel="stylesheet" />
+<nav class="main_nav">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+
+                <div class="main_nav_content d-flex flex-row">
+
+                    <!-- Categories Menu -->
+
+                    <div class="cat_menu_container bg-primary">
+                        <div class="cat_menu_title d-flex flex-row align-items-center justify-content-start">
+                            <div class="cat_burger"><span></span><span></span><span></span></div>
+                            <div class="cat_menu_text">categories</div>
+                        </div>
+
+                        <ul class="cat_menu">
+
+                            @Html.Action("Category", "Client")
+                        </ul>
+                    </div>
+
+                    <!-- Main Nav Menu -->
+
+                    <div class="main_nav_menu ml-auto">
+                        <ul class="standard_dropdown main_nav_dropdown">
+                            <li class="hassubs">
+                                <a href="#">Super Deals<i class="fas fa-chevron-down"></i></a>
+                                <ul>
+                                    <li>
+                                        <a href="#">Menu Item<i class="fas fa-chevron-down"></i></a>
+                                        <ul>
+                                            <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                            <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                            <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                    <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                    <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                </ul>
+                            </li>
+                            <li class="hassubs">
+                                <a href="#">Featured Brands<i class="fas fa-chevron-down"></i></a>
+                                <ul>
+                                    <li>
+                                        <a href="#">Menu Item<i class="fas fa-chevron-down"></i></a>
+                                        <ul>
+                                            <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                            <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                            <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                    <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                    <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                </ul>
+                            </li>
+                            <li><a href="cart.html">Cart<i class="fas fa-chevron-down"></i></a></li>
+                            <li><a href="product.html">Product<i class="fas fa-chevron-down"></i></a></li>
+                            <li><a href="shop.html">Shop<i class="fas fa-chevron-down"></i></a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Menu Trigger -->
+
+                    <div class="menu_trigger_container ml-auto">
+                        <div class="menu_trigger d-flex flex-row align-items-center justify-content-end">
+                            <div class="menu_burger">
+                                <div class="menu_trigger_text">menu</div>
+                                <div class="cat_burger menu_burger_inner"><span></span><span></span><span></span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="row col p-lg-3">
+        <div class="mx-auto form-check-inline">
+            @Html.LabelFor(model => model.IsBilling, htmlAttributes: new { @class = "form-check-label col-md-11" })
+            <div class="col-md-1">
+                @Html.EditorFor(model => model.IsBilling, new { htmlAttributes = new { @class = "form-check-input" } })
+                @Html.ValidationMessageFor(model => model.IsBilling, "", new { @class = "text-danger" })
+            </div>
+            
+        </div>
+    </div>
+    <div class="row p-1">
+        <div class="form-horizontal col-md-6">
+            <div class="card border-primary">
+                <div class="card-body">
+                    <h4 class="card-title">Shipping Address</h4>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.User.ID)
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Person</span>
+                        </div>
+                        @Html.EditorFor(model => model.User.FName, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "First Name" } })
+                        @Html.EditorFor(model => model.User.Lname, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Last Name" } })
+                        @Html.ValidationMessageFor(model => model.User.FName, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => model.User.Lname, "", new { @class = "text-danger" })
+                     </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                        </div>
+                        @Html.EditorFor(model => model.User.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.User.Email, "", new { @class = "text-danger" })
+                    </div>
+
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">City</span>
+                        </div>
+                        @Html.EditorFor(model => model.User.City, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.User.City, "", new { @class = "text-danger" })
+                    </div>
+
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-mobile-alt"></i></span>
+                        </div>
+                        @Html.EditorFor(model => model.User.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.User.Phone, "", new { @class = "text-danger" })
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal col-md-6" id="billing_div">
+            <div class="card border-primary ">
+                <div class="card-body">
+                    <h4 class="card-title">Billing Address</h4>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Person</span>
+                        </div>
+                        @Html.EditorFor(model => model.FName, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "First Name" } })
+                        @Html.EditorFor(model => model.Lname, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Last Name" } })
+                        @Html.ValidationMessageFor(model => model.FName, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => model.Lname, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                        </div>
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Address</span>
+                        </div>
+                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">City</span>
+                        </div>
+                        @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Country</span>
+                        </div>
+                        @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-mobile-alt"></i></span>
+                        </div>
+                        @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                    </div>
+           
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+    <div class="form-group col row p-2">
+        <div class="mx-auto">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </div>
+}
+<script src="~/Scripts/jquery-3.0.0.js"></script>
+<script>
+    $(function () {
+        $("#IsBilling").click(function () {
+            if ($(this).is(':checked')) {
+                $("#billing_div").hide();
+            }
+            else {
+                $("#billing_div").show();
+            }
+        });      
+    });
+</script>

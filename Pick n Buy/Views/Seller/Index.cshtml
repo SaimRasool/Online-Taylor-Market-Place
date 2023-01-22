@@ -1,0 +1,56 @@
+﻿@model OTM.Models.MdlSeller
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_TaylorLayout.cshtml";
+}
+
+@if (Convert.ToInt32(Session["SID"]) == 0)
+{
+    using (Html.BeginForm("Index", "Seller", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <h3>Please Enter Following Detail</h3>
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-inline">
+                @Html.LabelFor(model => model.Comapny, htmlAttributes: new { @class = "control-label" })
+                <div class="col-md-6 mt-3">
+                    @Html.EditorFor(model => model.Comapny, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Comapny, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-inline mt-3">
+                @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label" })
+                <div class="col-md-6">
+                    @Html.TextAreaFor(model => model.Address, new { @rows = 4, @class = "col-md-12", placeholder = Html.DisplayNameFor(x => x.Address) })
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-inline mt-3">
+                @Html.LabelFor(model => model.About, htmlAttributes: new { @class = "control-label" })
+                <div class="col-md-6">
+                    @Html.TextAreaFor(model => model.About, new { @rows = 4, @class = "col-md-12", placeholder = Html.DisplayNameFor(x => x.About) })
+                    @Html.ValidationMessageFor(model => model.About, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="custom-file form-inline mt-4">
+                @Html.LabelFor(model => model.Logo, htmlAttributes: new { @class = "custom-file-label", @for = "customFile" })
+                <div class="col-md-10">
+                    <input type="file" name="file" id="customFile" class="custom-file-input" />
+                    @Html.ValidationMessageFor(model => model.Logo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-outline-primary" />
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <h2> Index</h2>
+}

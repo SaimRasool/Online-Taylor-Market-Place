@@ -1,0 +1,6 @@
+﻿@model IEnumerable<OTM.Models.MdlCategory>
+
+@foreach (var item in Model)
+{
+    <li><a href='@Url.Action("Product", "Client", new { id = item.ID })'>@item.Name <i class="fas fa-chevron-right ml-auto"></i></a></li>
+}

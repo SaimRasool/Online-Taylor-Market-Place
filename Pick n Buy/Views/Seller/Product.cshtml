@@ -1,0 +1,55 @@
+﻿@model IEnumerable<OTM.Models.MdlProduct>
+@{
+    ViewBag.Title = "Product";
+    Layout = "~/Views/Shared/_TaylorLayout.cshtml";
+}
+
+<h2 class="text-secondary text-center">Products</h2>
+
+<table class="table table-secondary table-hover">
+    <tr class="row col-md-12">
+        <th class="col-md-2 text-center">
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th class="col-md-1 text-center">
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
+        <th class="col-md-1 text-center">
+            @Html.DisplayNameFor(model => model.UnitPrice)
+        </th>
+        <th class="col-md-3 text-center">
+            @Html.DisplayNameFor(model => model.Thumbnail)
+        </th>
+        <th class="col-md-3 text-center">
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr class="row text-primary text-center">
+            <td class="col-md-2">
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td class="col-md-1">
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td class="col-md-1">
+                @Html.DisplayFor(modelItem => item.UnitPrice)
+            </td>
+            <td class="col-md-3">
+                <img src="@Url.Content(item.Thumbnail)" width="200" height="100" />
+            </td>
+            <td class="col-md-3">
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "UpdateProduct", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "DeleteProduct", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>
+

@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        #bc {
+            background: #f0f9ff;
+            background: -webkit-gradient(linear, left top, right top, from(#f0f9ff), color-stop(0%, #aa7ad0), to(#d07acd));
+            background: -o-linear-gradient(left, #f0f9ff 0%, #aa7ad0 0%, #d07acd 100%);
+            background: linear-gradient(to right, #f0f9ff 0%, #aa7ad0 0%, #d07acd 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f9ff', endColorstr='#d07acd', GradientType=1)
+        }
+    </style>
+    <link href="~/Content/fontawesome.css" rel="stylesheet" />
+    <link href="~/Content/fontawesome-all.css" rel="stylesheet" />
+    <link href="~/Content/OwlCarousel2-2.2.1/animate.css" rel="stylesheet" />
+    <link href="~/Content/OwlCarousel2-2.2.1/owl.theme.default.css" rel="stylesheet" />
+    <link href="~/Content/OwlCarousel2-2.2.1/owl.carousel.css" rel="stylesheet" />
+    <link href="~/Content/slick-1.8.0/slick.css" rel="stylesheet" />
+    <link href="~/Content/User_Panel/responsive.css" rel="stylesheet" />
+    <link href="~/Content/User_Panel/main_styles.css" rel="stylesheet" />
+
+</head>
+<body>
+
+    <div class="navbar navbar-expand-lg fixed-top" id="bc">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01" style="font-size:17px;">
+            <ul class="navbar-nav mr-auto pl-5">
+                <li class="nav-item">@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link active" })</li>
+                <li class="nav-item">@Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })</li>
+
+            </ul>
+            <ul class="navbar-nav my-2 my-lg-0">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="topbar-divider d-none d-sm-block"></div>
+                    <!-- Nav Item - User Information -->
+                    <li class="nav-item dropdown no-arrow">
+                        <a class="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600">User</span><i class="fas fa-user-alt"></i>
+                        </a>
+                        <!-- Dropdown - User Information -->
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="@Url.Action("Profile","Account",new {str = (string)Session["Email"]})">
+                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Profile
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="@Url.Action("Logout","Account")">
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Logout
+                            </a>
+                        </div>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">@Html.ActionLink("Sign in", "Login", "Account", null, new { @class = "nav-link active" })</li>
+                }
+            </ul>
+        </div>
+    </div>
+    <br />
+    <br />
+    <!-- Header Main -->
+
+    <div class="header_main">
+        <div class="container">
+            <div class="row">
+
+                <!-- Logo -->
+                <div class="col-lg-3 col-sm-3 col-3 order-1">
+                    <div class="logo_container">
+                        <div class="logo">@Html.ActionLink("OTM", "Index", "Home", null, new { @class = "" })</div>
+                    </div>
+                </div>
+
+                <!-- Search -->
+                <div class="col-lg-6 col-12 order-lg-2 order-3 text-lg-left text-right">
+                    <div class="header_search">
+                        <div class="header_search_content">
+                            <div class="header_search_form_container">
+                                <form action="#" class="header_search_form clearfix">
+                                    <input type="search" required="required" class="header_search_input" placeholder="Search for products...">
+                                    <div class="custom_dropdown">
+                                        <div class="custom_dropdown_list">
+                                            <span class="custom_dropdown_placeholder clc">All Categories</span>
+                                            <i class="fas fa-chevron-down"></i>
+                                            <ul class="custom_list clc">
+                                                <li><a class="clc" href="#">All Categories</a></li>
+                                                <li><a class="clc" href="#">Ladies</a></li>
+                                                <li><a class="clc" href="#">Jents</a></li>
+                                                <li><a class="clc" href="#">Kids</a></li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="header_search_button trans_300 bg-primary" value="Submit"><i class="fa fa-search" style="color:white;font-size:20px;"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wishlist -->
+                <div class="col-lg-3 col-9 order-lg-3 order-2 text-lg-left text-right">
+                    <div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
+
+
+                        <!-- Cart -->
+                        @Html.Action("Cartinfo", "Home")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @Html.Action("Taylor", "Client")
+
+    <div class="body-content">
+
+        @RenderBody()
+        <hr />
+    </div>
+    <footer class="footer" id="bc">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-4 footer_col">
+                    <div class="footer_column footer_contact">
+                        <div class="logo_container">
+                            <div class="logo"><a href="#" class="text-white">Eastern Taylor Market Place</a></div>
+                        </div>
+                        <div class="footer_title text-white">Got Question? Call Us 24/7</div>
+                        <div class="footer_phone text-black-50">+92 333 1234567</div>
+                        <div class="footer_contact_text">
+                            <p class="text-white-50">COMSATS Univeristy Sub Campus, Vehari</p>
+                        </div>
+                        <div class="footer_social">
+                            <ul>
+                                <li id="bc"><a href="#"><i class="fab fa-facebook-f" style="color:whitesmoke;"></i></a></li>
+                                <li id="bc"><a href="#"><i class="fab fa-twitter" style="color:whitesmoke;"></i></a></li>
+                                <li id="bc"><a href="#"><i class="fab fa-youtube" style="color:whitesmoke;"></i></a></li>
+                                <li id="bc"><a href="#"><i class="fab fa-google" style="color:whitesmoke;"></i></a></li>
+                                <li id="bc"><a href="#"><i class="fab fa-vimeo-v" style="color:whitesmoke;"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 offset-lg-2">
+                    <div class="footer_column">
+                        <div class="footer_title text-white h2">Find it Fast</div>
+                        <ul class="footer_list">
+                            <li><a href="#" class="text-white">Ladies</a></li>
+                            <li><a href="#" class="text-white">Jents</a></li>
+                            <li><a href="#" class="text-white">Kids</a></li>
+
+                        </ul>
+
+                    </div>
+                </div>
+
+
+
+                <div class="col-lg-3">
+                    <div class="footer_column">
+                        <div class="footer_title text-white ">Customer Care</div>
+                        <ul class="footer_list">
+                            <li><a href="#" class="text-white">My Account</a></li>
+                            <li class="nav-item">@Html.ActionLink("About", "About", "Home", null, new { @class = "text-white" })</li>
+                            <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "text-white" })</li>
+                            <li><a href="#" class="text-white">FAQs</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-xl-5 copyright_container d-flex flex-sm-row flex-column align-items-center justify-content-start">
+                    <div class="copyright_content">
+                        <p class="text-black-50">&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/fontawesome/fontawesome.js"></script>
+    <script src="~/Scripts/ClientScript/product_custom.js"></script>
+    <script src="~/Scripts/ClientScript/cart_custom.js"></script>
+    <script src="~/Content/slick-1.8.0/slick.js"></script>
+    <script src="~/Content/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+    <script src="~/Scripts/ClientScript/custom.js"></script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

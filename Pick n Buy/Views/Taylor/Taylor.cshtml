@@ -1,0 +1,44 @@
+﻿@model IEnumerable<OTM.Models.MdlTaylor>
+@{
+    ViewBag.Title = "Taylor";
+    Layout = "~/Views/Shared/_TaylorLayout.cshtml";
+}
+
+<h2 class="text-secondary text-center">Products</h2>
+
+<table class="table table-secondary table-hover">
+    <tr class="row">
+        <th class="col-md-3 text-center">
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th class="col-md-3 text-center">
+            @Html.DisplayNameFor(model => model.Image)
+        </th>
+        <th class="col-md-4 text-center">
+            @Html.DisplayNameFor(model => model.About)
+        </th>
+        <th class="col-md-2">Action</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr class="row text-primary text-center">
+            <td class="col-md-3">
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td class="col-md-3">
+                <img src="@Url.Content(item.Image)" width="200" height="100" />
+            </td>
+            <td class="col-md-4">
+                @Html.DisplayFor(modelItem => item.About)
+            </td>
+            <td class="col-md-2">
+                @Html.ActionLink(" ", " ", " ", new { id = item.ID }, htmlAttributes: new { @class = "fa fa-edit text-warning" }) |
+                @Html.ActionLink(" ", " ", " ", new { id = item.ID }, htmlAttributes: new { @class = "fa fa-trash text-danger" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+

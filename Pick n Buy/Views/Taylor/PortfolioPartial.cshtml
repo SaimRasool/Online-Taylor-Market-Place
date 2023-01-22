@@ -1,0 +1,50 @@
+﻿@model IEnumerable<OTM.Models.Mdl_Portfolio>
+
+<!-- portfolio_area -->
+<div class="portfolio_area portfolio_bg_1">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="section_title white_text text-center">
+                    <span>Portfolios</span>
+                    <h3>
+                        Some of my awesome <br>
+                        stuffs here
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/ portfolio_area -->
+<!-- portfolio_image_area  -->
+<div class="portfolio_image_area">
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-xl-5 col-md-5 col-lg-4">
+                    <div class="single_Portfolio">
+                        <div class="portfolio_thumb">
+                            <img src="@Url.Content(item.Image)" alt="">
+                        </div>
+                        <a href="@Url.Content(item.Image)" class="popup popup-image"></a>
+                        <div class="portfolio_hover">
+                            <div class="title">
+                                <h5>@item.About</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            </div>
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="more_portfolio text-center">
+                    <a class="line_btn" href="#">More Folio</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/ portfolio_image_area  -->

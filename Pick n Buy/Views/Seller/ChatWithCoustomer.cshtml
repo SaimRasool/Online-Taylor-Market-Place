@@ -1,0 +1,382 @@
+﻿
+@{
+    ViewBag.Title = "Chat With Coustomer";
+    Layout = "~/Views/Shared/_TaylorLayout.cshtml";
+}
+<style>
+    .users__bar {
+    background-color: #f2f2f2;
+    }
+    .users__bar .__no__chat__ {
+    background-color: rgba(128, 128, 128, 0.425);
+    padding: 4px;
+    font-weight: 500;
+    text-align: center;
+    }
+    .users__bar .panel-heading.users__heading {
+    padding: 15px 15px;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    background-color: #000;
+    color: #fff;
+    }
+
+    .users__bar .panel-body.users__body {
+    padding: 0px;
+    }
+
+    .users__bar .panel-body.users__body .user__item {
+    text-decoration: none;
+    }
+
+    .users__bar .panel-body.users__body .user__item span {
+    color: #000;
+    font-weight: 600;
+    left: 7px;
+    position: relative;
+    }
+
+    .users__bar .panel-body.users__body .user__item li {
+    position: relative;
+    display: block;
+    padding: 10px 10px;
+    margin-bottom: -1px;
+    background-color: #e6e6e6;
+    border: 1px solid #ddd;
+    }
+
+    .users__bar .panel-body.users__body .user__item li.active {
+    background-color: rgba(128, 128, 128, 0.425);
+    }
+
+    .users__bar .panel-body.users__body .user__item .avatar {
+    display: inline-block;
+    }
+
+    .users__bar .panel-body.users__body .user__item .avatar img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    }
+
+    .users__bar .panel-body.users__body .user__item .status-bar {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(128, 128, 128, 0.425);
+    display: inline-block;
+    margin: 0px 10px 0px;
+    }
+
+    .users__bar .panel-body.users__body .user__item .status-bar.active {
+    background-color: green;
+    }
+    .hide {
+        display: none !important;
+    }
+
+    .show {
+        display: block !important;
+    }
+    .chat__body {
+        display: none;
+        position: relative;
+        background-color: #f2f2f2;
+    }
+
+    .chat__body .chat__main .__chat__ {
+    padding: 15px 15px;
+    border-radius: 20px;
+    margin: 20px 20px 0px 20px;
+    width: 65%;
+    }
+
+    .chat__body .chat__main .__chat__ p {
+    font-weight: 400;
+    }
+
+    .chat__body .chat__main .__chat__ p.delivery-status {
+    display: none;
+    font-size: 12px;
+    float: right;
+    top: -10px;
+    position: relative;
+    }
+
+    .chat__body .chat__main .__chat__.from__chat {
+    background-color: #d9d9d9;
+    }
+
+        .chat__body .chat__main .__chat__.receive__chat {
+            background-color: #4d9aff;
+            float: right;
+            color: #ffffff;
+        }
+
+    .chat__body .chat__type__body .chat__type {
+    background-color: #e6e6e6;
+    width: 100%;
+    }
+
+    .chat__body .chat__type__body .chat__type textarea {
+    background-color: inherit;
+    width: 85%;
+    padding: 10px 10px 0px;
+    border: none;
+    display: inline-block;
+    }
+
+    .chat__body .chat__type__body .chat__type #sendMessage {
+    position: relative;
+    display: inline-block;
+    top: -15px;
+    width: 14%;
+    }
+
+    .chat__body .typing_display__open {
+    bottom: 30px;
+    }
+
+    .chat__body .chat__typing {
+    position: absolute;
+    display: none;
+    height: 30px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin-bottom: 0px;
+    background-color: #f2f2f2;
+    padding: 5px;
+    }
+
+    .chat__body .chat__typing span {
+    font-style: italic;
+    font-size: 12px;
+    color: #999999;
+    }
+
+</style>
+<!-- / Navigation Bar -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 pl-1">
+            <div class="panel panel-primary users__bar">
+                <div class="panel-heading users__heading bg-danger">
+                    Contacts (@ViewBag.allUsers.Count)
+                </div>
+                <div class="__no__chat__">
+                    <p>Select a contact to chat with</p>
+                </div>
+                <div class="panel-body users__body">
+                    <ul id="contacts" class="list-group">
+                        @foreach (var user in @ViewBag.allUsers)
+                        {
+                            <a class="user__item contact-@user.ID" href="#" data-contact-id="@user.ID" data-contact-name="@user.FName">
+                                <li class="bg-light  border-0">
+                                    <div class="avatar">
+                                        <img src="~/Images/no_avatar.png" />
+                                    </div>
+                                    <span>@user.FName</span>
+                                    <div class="offset-1 status-bar"></div>
+                                </li>
+                            </a>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9 chat__body" >
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="list-group chat__main bg-white border-0"></ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="chat__type__body col-md-12">
+                    <div class="chat__type">
+                        <textarea class="col-md-10" id="msg_box" placeholder="Type your message" cols="8"></textarea>
+                        <button class="offset-10 btn btn-secondary" id="sendMessage">Send</button>
+                    </div>
+                </div>
+                <div class="chat__typing">
+                    <span id="typerDisplay"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+           
+
+
+<script src="~/Scripts/jquery-3.0.0.js"></script>
+<script src="https://js.pusher.com/6.0/pusher.min.js"></script>
+<script>
+        //////////// Variable Instantiation
+
+            function throttle(callback, wait, context = this) {
+  let timeout = null
+  let callbackArgs = null
+
+  const later = () => {
+    callback.apply(context, callbackArgs)
+    timeout = null
+  }
+
+  return function() {
+    if (!timeout) {
+      callbackArgs = arguments
+      timeout = setTimeout(later, wait)
+    }
+  }
+}
+
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('9461ef37ed9224dfb8b3', {
+            cluster: 'ap2'
+        });
+            //Pusher client side setup
+
+         let currentContact = null; // Holds contact currently being chatted with
+        let socketId = null;
+        let currentconversationChannel = null;//pusher.subscribe('chat-' + @ViewBag.currentUser.ID );
+        let conversationChannelName = null;
+        let newMessageTpl = `<div>
+            <div id="msg-{{id}}" class="row __chat__par__">
+                <div class="__chat__">
+                <p>{{body}}</p>
+                <p class="delivery-status">Delivered</p>
+                </div>
+            </div>
+            </div>`;
+            pusher.connection.bind('connected', function() {
+            socketId = pusher.connection.socket_id;
+        });
+
+
+    /////////////////////////////////
+        const chatAppChannel = pusher.subscribe('private-chat-1-1');
+        chatAppChannel.bind("pusher:subscription_succeeded", function(members) {
+
+
+        });
+        chatAppChannel.bind("pusher:member_added", function(member){
+            setContactStatus(member.info.id, 1);
+        });
+        chatAppChannel.bind("pusher:member_removed", function(member){
+            setContactStatus(member.info.id, 0);
+        });
+        function setContactStatus( contact_id, status ) {
+            var contactObj = $('#contacts .contact-' + contact_id);
+            if ( status ) {
+                contactObj.find('.status-bar').addClass('active');
+            } else {
+                contactObj.find('.status-bar').removeClass('active');
+            }
+        }
+        function displayMessage( message_obj ) {
+            const msg_id = message_obj.id;
+            const msg_body = message_obj.message;
+            let template = $(newMessageTpl).html();
+            template = template.replace("{{id}}", msg_id);
+            template = template.replace("{{body}}", msg_body);
+            template = $(template);
+            if ( message_obj.sender_id == @ViewBag.currentUser.ID ) {
+                template.find('.__chat__').addClass('from__chat');
+            } else {
+                template.find('.__chat__').addClass('receive__chat ml-auto');
+            }
+            if ( message_obj.status == 1 ) {
+                template.find('.delivery-status').show();
+            }
+            $('.chat__main').append(template);
+        }
+        // get chat data
+        function getChat( contact_id ) {
+            $.get("/Chat/ConversationWithContact/?contact=" + contact_id )
+                .done( function(resp) {
+                let chat_data = resp.data || [];
+                loadChat( chat_data );
+                });
+        }
+        //load chat data into view
+        function loadChat( chat_data ) {
+            chat_data.forEach( function(data) {
+                displayMessage(data);
+            });
+
+            $('.chat__body').show();
+            $('.__no__chat__').hide();
+        }
+        // select contact to chat with
+        $('.user__item').click( function(e) {
+            e.preventDefault();
+            currentContact = {
+                id: $(this).data('contact-id'),
+                name: $(this).data('contact-name'),
+            };
+            if ( conversationChannelName ) {
+                pusher.unsubscribe( conversationChannelName );
+            }
+            conversationChannelName = getConvoChannel( (@ViewBag.currentUser.ID * 1) ,  (currentContact.id * 1) );
+            currentconversationChannel = pusher.subscribe(conversationChannelName);
+            bind_client_events();
+
+            $('#contacts').find('li').removeClass('active');
+            $('#contacts .contact-' + currentContact.id).find('li').addClass('active');
+            getChat(currentContact.id);
+        });
+        function getConvoChannel(user_id, contact_id) {
+            if ( user_id > contact_id ) {
+                return 'private-chat-' + contact_id + '-' + user_id;
+            }
+            return 'private-chat-' + user_id + '-' + contact_id;
+        }
+        //User is typing
+        var isTypingCallback = throttle(function() {
+            currentconversationChannel.trigger("client-is-typing", {
+                user_id: @ViewBag.currentUser.ID,
+                contact_id: currentContact.id,
+            });
+        }, 1000);
+        $('#msg_box').on('keyup',isTypingCallback);
+        ///////////////////Sending Messages/////////////////////
+        $('#sendMessage').click( function() {
+            $.post("/Chat/SendMessage", {
+                message: $('#msg_box').val(),
+                contact: currentContact.id,
+                socket_id: socketId,
+            }).done( function (data) {
+                displayMessage(data);
+                $('#msg_box').val('');
+            });
+        });
+        function bind_client_events(){
+            currentconversationChannel.bind("client-is-typing", function(data) {
+                if ( data.user_id == currentContact.id && data.contact_id == @ViewBag.currentUser.ID  ) {
+                    $('#typerDisplay').text( currentContact.name + ' is typing...');
+
+                    $('.chat__typing').fadeIn(100, function() {
+                        $('.chat__type__body').addClass('typing_display__open');
+                    }).delay(1000).fadeOut(300, function(){
+                        $('.chat__type__body').removeClass('typing_display__open');
+                    });
+                }
+            });
+            currentconversationChannel.bind("new_message", function(msg) {
+                    if ( msg.receiver_id == @ViewBag.currentUser.ID ) {
+                    displayMessage(msg);
+                    }
+                $.post("/Chat/MessageDelivered/?message_id=" + msg.id, {
+                    socket_id: socketId,
+                    });
+            });
+            currentconversationChannel.bind("message_delivered", function(msg) {
+                $('#msg-' + msg.id).find('.delivery-status').show();
+            });
+        }
+</script>
+
+

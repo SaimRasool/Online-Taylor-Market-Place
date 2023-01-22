@@ -1,0 +1,69 @@
+﻿@model OTM.Models.MdlProduct
+@{
+    ViewBag.Title = "Add Product";
+    Layout = "~/Views/Shared/_TaylorLayout.cshtml";
+}
+@if (ViewBag.Message != null)
+{
+    <br />
+    <div class="alert alert-success">
+        @ViewBag.Message
+    </div>
+}
+<h2 class="text-secondary text-center">Add Product</h2>
+
+@using (Html.BeginForm("AddProduct", "Seller", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-inline mt-4">
+            @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(md => md.Category, new SelectList(Model.CategoryList, "ID", "Name"), "--Select Product--", new { @class = "form-control text-center", @id = "DrpDwn", @style = "border-radius:17px;" })
+                @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-inline mt-4">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-inline mt-4">
+            @Html.LabelFor(model => model.UnitPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UnitPrice, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UnitPrice, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="custom-file form-inline mt-4">
+            <div class="col-md-10">
+                <input type="file" name="file" id="customFile" class="custom-file-input" />
+                @Html.LabelFor(model => model.Thumbnail, htmlAttributes: new { @class = "custom-file-label", @for = "customFile" })
+                @Html.ValidationMessageFor(model => model.Thumbnail, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-inline mt-4">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Description, new { @cols = 15, @rows = 8, @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group mt-2">
+            <div class="offset-5 col-md-10">
+                <input type="submit" value="Create" class="btn btn-secondary" />
+            </div>
+        </div>
+    </div>
+}
+
+

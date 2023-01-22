@@ -1,0 +1,95 @@
+﻿@model OTM.Models.MdlContact
+
+@{
+    ViewBag.Title = "Contact";
+}
+
+
+<!-- Contact Info -->
+<link href="~/Content/User_Panel/contact_responsive.css" rel="stylesheet" />
+<link href="~/Content/User_Panel/contact_styles.css" rel="stylesheet" />
+<div class="contact_info">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1">
+                <div class="contact_info_container d-flex flex-lg-row flex-column justify-content-between align-items-between">
+
+                    <!-- Contact Item -->
+                    <div class="contact_info_item d-flex flex-row align-items-center justify-content-start">
+                        <div class="contact_info_image"><i class="fa fa-mobile-alt" style="font-size:30px;"></i></div>
+                        <div class="contact_info_content">
+                            <div class="contact_info_title">Phone</div>
+                            <div class="contact_info_text">+92 303 7196273</div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Item -->
+                    <div class="contact_info_item d-flex flex-row align-items-center justify-content-start">
+                        <div class="contact_info_image"><i class="fa fa-envelope" style="font-size:30px;"></i></div>
+                        <div class="contact_info_content">
+                            <div class="contact_info_title">Email</div>
+                            <div class="contact_info_text">saimrasoolkambo@gmail.com</div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Item -->
+                    <div class="contact_info_item d-flex flex-row align-items-center justify-content-start">
+                        <div class="contact_info_image"><i class="fa fa-map-marker-alt" style="font-size:30px;"></i></div>
+                        <div class="contact_info_content">
+                            <div class="contact_info_title">Address</div>
+                            <div class="contact_info_text">Comsats University Islamabad Vehari Campus, Pirmurad multan Road Vehari</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (ViewBag.Message != null)
+{
+    <br />
+    <div class="alert alert-success">
+        <strong> @ViewBag.Message</strong>
+    </div>
+}
+<!-- Contact Form -->
+
+<div class="contact_form">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1">
+                <div class="contact_form_container">
+                    <div class="contact_form_title">Get in Touch</div>
+                    <div id="contact_form">
+                        @using (Html.BeginForm())
+{
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "contact_form_name input_field", @id = "contact_form_name", placeholder = Html.DisplayNameFor(x => x.Name) } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "contact_form_email input_field", @id = "contact_form_email", placeholder =Html.DisplayNameFor(x => x.Email) } })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.ContactNo, new { htmlAttributes = new { @class = "contact_form_phone input_field", @id = "contact_form_phone", placeholder = "Your Phone Number"} })
+                                @Html.ValidationMessageFor(model => model.ContactNo, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="contact_form_text">
+                                @Html.TextAreaFor(model => model.Message, new { @rows = 4, @class = "text_field contact_form_message col-md-12", id = "contact_form_message", placeholder = Html.DisplayNameFor(x => x.Message) })
+                               @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="contact_form_button">
+                                <button type="submit" class="button contact_submit_button bg-primary">Send Message</button>
+                            </div>
+}
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel"></div>
+</div>
+

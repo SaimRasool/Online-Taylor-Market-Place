@@ -1,0 +1,139 @@
+﻿@model OTM.Models.MdlAccount
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/MyStyle/style.css" rel="stylesheet" />
+    <link href="~/Content/fontawesome-all.min.css" rel="stylesheet" />
+    <link href="~/Content/MyStyle/LoginCSS.css" rel="stylesheet" />
+    <style>
+        .hid {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    @if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status))
+    {
+        if (ViewBag.Message != null)
+        {
+            <br />
+            <div class="alert alert-success">
+                @ViewBag.Message
+            </div>
+        }
+    }
+    <div class="materialContainer">
+        <div class="box">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="title">LOGIN</div>
+                <div class="input">
+                    <label for="name">Email</label>
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @id = "name", @name = "name" } })
+                    @*<input type="text" name="name" id="name">*@
+                    <span class="spin"></span>
+                    <div style="margin-top:20%">
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="input">
+                    <label for="pass">Password</label>
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @id = "pass", @name = "pass" } })
+                    @*<input type="password" name="pass" id="pass">*@
+                    <span class="spin"></span>
+                    <div style="margin-top:20%">
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="button login">
+                    <button type="submit"><span>GO</span> <i class="fa fa-check"></i></button>
+                </div>
+                <a href='@Url.Action("ForgotPassword")' class="pass-forgot">Forgot your password?</a>
+            }
+        </div>
+
+        <div class="overbox">
+            <div class="material-button alt-2"><span class="shape"></span></div>
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="title" style="font-size:29px" id="regtitle">BUYER REGISTER</div>
+                <div class="input">
+                    <label for="regname">Email</label>
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @id = "regname", @name = "regname" } })
+                    <span class="spin"></span>
+                    <div style="margin-top:20%">
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="input">
+                    <label for="regpass">Password</label>
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @id = "regpass", @name = "regpass" } })
+                    <span class="spin"></span>
+                    <div style="margin-top:20%">
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="input">
+                    <label for="reregpass">Repeat Password</label>
+                    @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @id = "reregpass", @name = "reregpass" } })
+                    <span class="spin"></span>
+                    <div style="margin-top:20%">
+                        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div style="position:relative;z-index: 111; height:50px; margin-left:-2px" class="custom-control custom-checkbox form-control-lg hid" id="ch">
+
+                    @Html.EditorFor(model => model.UserType, new { htmlAttributes = new { @class = "custom-control-input", @id = "UserType" } })
+                    <label class="custom-control-label" for="UserType" id="lbl">SignUp As a Seller</label>
+                </div>
+                <div class="button">
+                    <button type="submit"><span>NEXT</span></button>
+                </div>
+
+            }
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
+    <script src="~/Scripts/umd/popper.min.js"></script>
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/Login/Login.js"></script>
+    <script>
+        $(function () {
+            $(".material-button").click(function () {
+                $("#ch").toggleClass("hid");
+            });
+            $("#UserType").click(function () {
+                if ($(this).is(':checked')) {
+                    $("#regtitle").text("SELER REGISTER");
+                }
+                else {
+                    $("#regtitle").text("BUYER REGISTER");
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+

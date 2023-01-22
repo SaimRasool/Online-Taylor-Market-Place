@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/TaylorPanelCSS/style.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome/css/fontawesome-all.css" rel="stylesheet" />
+    <link href="~/Content/glyphicons/css/bootstrap-glyphicons.min.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+
+
+</head>
+<body>
+    <!-- Left Panel -->
+
+    <aside id="left-panel" class="left-panel">
+        <nav class="navbar navbar-expand-sm navbar-default">
+
+            <div class="navbar-header">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="./">Eastern Taylor Market Palce</a>
+                <a class="navbar-brand hidden" href="./">ETM</a>
+            </div>
+
+            <div id="main-menu" class="main-menu collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+
+                    <li class="active">
+                        <a href='@Url.Action("Index","Seller")'> <i class="menu-icon fa fa-dashboard"></i>Dashboard</a>
+                    </li>
+                    @if (Convert.ToInt32(Session["SID"]) != 0)
+                    {
+                        <!-- !!!!!!!!!!!! 1st Menue !!!!!!!!!!!!!!!-->
+                        <h3 class="menu-title">Taylor</h3><!-- /.menu-title -->
+                        <li>
+                            <a href='@Url.Action("Taylor","Taylor")'> <i class="menu-icon fa fa-th-list"></i>View Taylors</a>
+                        </li>
+                        <li>
+                            <a href='@Url.Action("AddTaylor","Taylor")'> <i class="menu-icon fa  fa-user-plus"></i>Add Taylor </a>
+                        </li>
+
+                        <!-- !!!!!!!!!!!! 2nd Menue !!!!!!!!!!!!!!!-->
+                        <h3 class="menu-title">PortFolio</h3><!-- /.menu-title -->
+                        <li>
+                            <a href='@Url.Action("AddPortfolio","Taylor")'> <i class="menu-icon fas fa-portrait"></i>Add Portfolio </a>
+                        </li>
+
+
+                        <!-- !!!!!!!!!!!! 3rd Menue !!!!!!!!!!!!!!!-->
+                        <h3 class="menu-title">Product</h3><!-- /.menu-title -->
+                        <li>
+                            <a href='@Url.Action("Product","Seller")'> <i class="menu-icon fas fa-coins"></i>View product </a>
+                        </li>
+                        <li>
+                            <a href='@Url.Action("AddProduct","Seller")'> <i class="menu-icon fa fa-plus"></i>Add New</a>
+                        </li>
+
+
+                    }
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+    </aside><!-- /#left-panel -->
+    <!-- Left Panel -->
+
+    <div id="right-panel" class="right-panel">
+
+        <!-- Header-->
+        <header id="header" class="header">
+
+            <div class="header-menu">
+
+                <div class="col-sm-7">
+                    <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa-tasks"></i></a>
+                    <a href="@Url.Action("ChatWithCoustomer","Seller")" class="nav navbar-link h3">
+                        <i class="fa fa-envelope"></i>
+                    </a>
+                </div>
+
+                <div class="col-sm-5">
+                    <div class="user-area dropdown float-right">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-user-circle"></i>
+                        </a>
+
+                        <div class="user-menu dropdown-menu">
+                            <a class="nav-link" href="#"><i class="fa fa-user"></i> My Profile</a>
+
+                            <a class="nav-link" href="#"><i class="fa fa-cog"></i> Settings</a>
+
+                            <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal"><i class="fa fa-power-off"></i> Logout</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </header>
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href='@Url.Action("Login","Account")'>Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /header -->
+
+
+
+
+        <div class="content mt-3">
+            @RenderBody()
+        </div> <!-- .content -->
+    </div><!-- /#right-panel -->
+    <!-- Right Panel -->
+
+
+
+
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
+    <script src="~/Scripts/umd/popper.min.js"></script>
+
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/fontawesome/fontawesome.min.js"></script>
+    <script src="~/Scripts/TaylorScript/main.js"></script>
+    <script src="~/Scripts/TaylorScript/User_JS.js"></script>
+
+</body>
+</html>

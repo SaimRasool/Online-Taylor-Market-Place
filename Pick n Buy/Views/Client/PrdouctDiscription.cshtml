@@ -1,0 +1,142 @@
+﻿@model OTM.Models.MdlProduct
+
+@{
+    ViewBag.Title = "PrdouctDiscription";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- Single Product -->
+<link href="~/Content/User_Panel/product_responsive.css" rel="stylesheet" />
+<link href="~/Content/User_Panel/product_styles.css" rel="stylesheet" />
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-warning"><h2 class="text-danger text-center">@ViewBag.Message</h2></div>
+}
+<nav class="main_nav">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+
+                <div class="main_nav_content d-flex flex-row">
+
+                    <!-- Categories Menu -->
+
+                    <div class="cat_menu_container bg-primary">
+                        <div class="cat_menu_title d-flex flex-row align-items-center justify-content-start">
+                            <div class="cat_burger"><span></span><span></span><span></span></div>
+                            <div class="cat_menu_text">Categories</div>
+                        </div>
+
+                        <ul class="cat_menu">
+
+                            @Html.Action("Category", "Client")
+                        </ul>
+                    </div>
+
+                    <!-- Main Nav Menu -->
+
+                    <div class="main_nav_menu ml-auto">
+                        <ul class="standard_dropdown main_nav_dropdown">
+                            <li class="hassubs">
+                                <a href="#">Super Deals<i class="fas fa-chevron-down"></i></a>
+                                <ul>
+                                    <li>
+                                        <a href="#">Menu Item<i class="fas fa-chevron-down"></i></a>
+                                        <ul>
+                                            <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                            <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                            <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                    <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                    <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                </ul>
+                            </li>
+                            <li class="hassubs">
+                                <a href="#">Featured Brands<i class="fas fa-chevron-down"></i></a>
+                                <ul>
+                                    <li>
+                                        <a href="#">Menu Item<i class="fas fa-chevron-down"></i></a>
+                                        <ul>
+                                            <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                            <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                            <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                    <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                    <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                </ul>
+                            </li>
+                            <li><a href="cart.html">Cart<i class="fas fa-chevron-down"></i></a></li>
+                            <li><a href="product.html">Product<i class="fas fa-chevron-down"></i></a></li>
+                            <li><a href="shop.html">Shop<i class="fas fa-chevron-down"></i></a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Menu Trigger -->
+
+                    <div class="menu_trigger_container ml-auto">
+                        <div class="menu_trigger d-flex flex-row align-items-center justify-content-end">
+                            <div class="menu_burger">
+                                <div class="menu_trigger_text">menu</div>
+                                <div class="cat_burger menu_burger_inner"><span></span><span></span><span></span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="single_product">
+    <div class="container">
+        <div class="row">
+            <!-- Selected Image -->
+            <div class="col-lg-5 order-lg-2 order-1">
+                <div class="image_selected"><img src="@Url.Content(Model.Thumbnail)" height="400",width="500"/></div>
+            </div>
+
+            <!-- Description -->
+            <div class="col-lg-5 order-3">
+                <div class="product_description">
+                    
+                    <div class="product_name">@Model.Name</div>
+                    <div class="rating_r rating_r_4 product_rating"><i></i><i></i><i></i><i></i><i></i></div>
+                    <div class="product_text"><p>@Model.Description</p></div>
+                    <div class="order_info d-flex flex-row">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.HiddenFor(model => model.ID)                 
+                            @Html.HiddenFor(model => model.Description)
+                            @Html.HiddenFor(model => model.Name)
+                            @Html.HiddenFor(model => model.UnitPrice)
+                            @Html.HiddenFor(model => model.Thumbnail)
+                            <div class="clearfix" style="z-index: 1000;">
+
+                                <!-- Product Quantity -->
+                                <div class="product_quantity clearfix">
+                                    <span class="col-md-8 pl-2" style=" padding-right:0px; padding-left:-5px">Quantity:</span>
+                                    @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @id = "quantity_input" } })
+                                   
+                                </div>
+
+                            </div>
+
+                            <div class="product_price">@Model.UnitPrice Rs</div>
+
+                            <div class="button_container">                              
+                                    <input type="submit" class="button cart_button" value="Add to Cart">
+                                <div class="product_fav"><i cla ss="fas fa-heart"></i></div>
+                            </div>
+
+                        }
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

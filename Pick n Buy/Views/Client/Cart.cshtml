@@ -1,0 +1,161 @@
+﻿@model IEnumerable<OTM.Models.MdlOrder>
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/User_Panel/cart_responsive.css" rel="stylesheet" />
+<link href="~/Content/User_Panel/cart_styles.css" rel="stylesheet" />
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-warning"><h2 class="text-danger text-center">@ViewBag.Message</h2></div>
+}
+
+
+<nav class="main_nav">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+
+                <div class="main_nav_content d-flex flex-row">
+
+                    <!-- Categories Menu -->
+
+                    <div class="cat_menu_container bg-primary">
+                        <div class="cat_menu_title d-flex flex-row align-items-center justify-content-start">
+                            <div class="cat_burger"><span></span><span></span><span></span></div>
+                            <div class="cat_menu_text">categories</div>
+                        </div>
+
+                        <ul class="cat_menu">
+
+                            @Html.Action("Category", "Client")
+                        </ul>
+                    </div>
+
+                    <!-- Main Nav Menu -->
+
+                    <div class="main_nav_menu ml-auto">
+                        <ul class="standard_dropdown main_nav_dropdown">
+                            <li class="hassubs">
+                                <a href="#">Super Deals<i class="fas fa-chevron-down"></i></a>
+                                <ul>
+                                    <li>
+                                        <a href="#">Menu Item<i class="fas fa-chevron-down"></i></a>
+                                        <ul>
+                                            <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                            <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                            <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                    <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                    <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                </ul>
+                            </li>
+                            <li class="hassubs">
+                                <a href="#">Featured Brands<i class="fas fa-chevron-down"></i></a>
+                                <ul>
+                                    <li>
+                                        <a href="#">Menu Item<i class="fas fa-chevron-down"></i></a>
+                                        <ul>
+                                            <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                            <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                            <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                    <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                    <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+                                </ul>
+                            </li>
+                            <li><a href="cart.html">Cart<i class="fas fa-chevron-down"></i></a></li>
+                            <li><a href="product.html">Product<i class="fas fa-chevron-down"></i></a></li>
+                            <li><a href="shop.html">Shop<i class="fas fa-chevron-down"></i></a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Menu Trigger -->
+
+                    <div class="menu_trigger_container ml-auto">
+                        <div class="menu_trigger d-flex flex-row align-items-center justify-content-end">
+                            <div class="menu_burger">
+                                <div class="menu_trigger_text">menu</div>
+                                <div class="cat_burger menu_burger_inner"><span></span><span></span><span></span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Cart -->
+@if (Model != null)
+{ <div class="cart_section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 offset-lg-1">
+                    <div class="cart_container">
+                        <div class="cart_title text-center text-secondary">Shopping Cart</div>
+                        <div class="cart_items">
+                            <ul class="cart_list">
+                                <li class="cart_item clearfix">
+                                    <div class="cart_item_image"><img src="images/shopping_cart.jpg" alt=""></div>
+                                    <div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
+                                        <div class="cart_item_name cart_info_col">
+                                            <div class="cart_item_title">Name</div>
+                                            @foreach (var item in Model)
+                                            {
+                                                <div class="cart_item_text">@item.name</div>
+                                            }
+                                        </div>
+
+                                        <div class="cart_item_quantity cart_info_col">
+                                            <div class="cart_item_title">Quantity</div>
+                                            @foreach (var item in Model)
+                                            {
+                                                <div class="cart_item_text">@item.Quantity</div>
+                                            }
+                                        </div>
+                                        <div class="cart_item_price cart_info_col">
+                                            <div class="cart_item_title">Price</div>
+                                            @foreach (var item in Model)
+                                            {
+                                                <div class="cart_item_text">$@item.UnitPrice</div>
+                                            }
+                                        </div>
+                                        <div class="cart_item_total cart_info_col">
+                                            <div class="cart_item_title">Total</div>
+
+                                            @foreach (var item in Model)
+                                            {
+
+                                                <div class="cart_item_text">Rs:@item.Total</div>
+                                            }
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Order Total -->
+                        <div class="order_total">
+                            <div class="order_total_content text-md-right">
+                                <div class="order_total_title">Order Total:</div>
+
+                                <div class="order_total_amount">Rs:@Model.Sum(i => i.Total)</div>
+                            </div>
+                        </div>
+
+                        <div class="cart_buttons">
+                            <button type="button" class="button cart_button_clear">Remove Cart</button>
+                            <a href='@Url.Action("GetAddresess", "Client")' class="button cart_button_checkout">Place an Order</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

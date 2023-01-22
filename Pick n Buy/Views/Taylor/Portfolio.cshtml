@@ -1,0 +1,81 @@
+﻿@model OTM.Models.MdlTaylor
+@{
+    ViewBag.Title = "Portfolio";
+    Layout = "~/Views/Shared/_PortfolioLayout.cshtml";
+}
+<!-- slider_area_start -->
+<div class="slider_area">
+    <div class="single_slider  d-flex align-items-center slider_bg_1">
+        <div class="shap_pattern d-none d-lg-block">
+            <img src="/../images/grid.png" alt="">
+        </div>
+        <div class="social_links">
+            <ul>
+                <li><a href="#"> <i class="fab fa-facebook"></i> </a></li>
+                <li><a href="#"> <i class="fab fa-twitter"></i> </a></li>
+                <li><a href="#"> <i class="fab fa-instagram"></i> </a></li>
+            </ul>
+        </div>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-xl-12">
+                    <div class="slider_text text-center">
+                        <h3>
+                            @Model.Name
+                        </h3>
+                        <span>@Model.About</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- slider_area_end -->
+<!-- service_area  -->
+<div class="service_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="section_title text-center mb-65">
+                    <span>Service Provided</span>
+                    <h3>
+                        Build brands campaigns
+                    </h3>
+                    @Html.ActionLink("Chat", "Index", "Chat", null, htmlAttributes: new { @class = "display-5" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-4 col-md-4">
+                <div class="single_service text-center">
+                    <div class="icon">
+                        <img src="@Url.Content(Model.S1Image)" alt="" width="300" height="300">
+                    </div>
+                    <h3>@Model.Skill1</h3>
+                    <p>@Model.S3Des</p>
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-4">
+                <div class="single_service text-center">
+                    <div class="icon">
+                        <img src="@Url.Content(Model.S2Image)" alt="" width="300" height="300">
+                    </div>
+                    <h3>@Model.Skill2</h3>
+                    <p>@Model.S2Des</p>
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-4">
+                <div class="single_service text-center">
+                    <div class="icon">
+                        <img src="@Url.Content(Model.S3Image)" alt="" width="300" height="300">
+                    </div>
+                    <h3>@Model.Skill3</h3>
+                    <p>@Model.S3Des</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/ service_area  -->
+
+@Html.Action("PortfolioPartial", "Taylor")
