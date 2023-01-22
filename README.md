@@ -1,0 +1,3 @@
+# Online-Taylor-Market-Place
+This Project is given to me as an assignment as this was a freelance FYP. This Project has 3 modules Admin, User, and Taylor. In this Project, Taylor registered herself as a Taylor and gave their services as a freelance. They make their portfolio and also sell their best product. Users visit the sites see the Taylor Portfolio and hire them.
+The Project provided me with a great opportunity to enhance my technical skills such as C#, ASP.net, ASP.NET MVC, Jquery, Javascript, MS SQL Server, and working on VisualStudio, or SQL Management Studio and learn how to work in a professional environment. I am grateful for the opportunity to gain valuable experience and I am proud of the work that I accomplished during my time there.
